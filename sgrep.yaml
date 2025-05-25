@@ -1,0 +1,162 @@
+rules:
+
+  - id: post_mapping_rm
+    severity: INFO
+    message: |
+
+      endpoint: @Post_Mapping $RM $Z 
+    patterns:
+      - pattern-inside: |-
+          @RestController
+          @RequestMapping($RM)
+          class $CLASS {...}
+      - pattern: |-
+          @PostMapping($Z)
+          $X $METHOD(...) {...}
+    languages:
+      - java
+
+  - id: post_mapping
+    severity: INFO
+    message: |
+
+      endpoint: @PostMapping . $Z
+    patterns:
+      - pattern-inside: |-
+          @RestController
+          class $CLASS {...}
+      - pattern-not-inside: |-
+          @RequestMapping(...)
+          @RestController
+          class $CLASS {...}
+      - pattern: |-
+          @PostMapping($Z)
+          $X $METHOD(...) {...}
+    languages:
+      - java
+
+
+      
+ 
+  - id: get_mapping_rm
+    severity: INFO
+    message: |
+
+      endpoint: @Get_Mapping $RM $Z 
+    patterns:
+      - pattern-inside: |-
+          @RestController
+          @RequestMapping($RM)
+          class $CLASS {...}
+      - pattern: |-
+          @GetMapping($Z)
+          $X $METHOD(...) {...}
+    languages:
+      - java
+      
+  - id: get_mapping
+    severity: INFO
+    message: |
+
+      endpoint: @GetMapping . $Z
+    patterns:
+      - pattern-inside: |-
+          @RestController
+          class $CLASS {...}
+      - pattern-not-inside: |-
+          @RequestMapping(...)
+          @RestController
+          class $CLASS {...}
+      - pattern: |-
+          @GetMapping($Z)
+          $X $METHOD(...) {...}
+    languages:
+      - java
+
+
+  # - id: class_annotations
+  #   severity: INFO
+  #   message: |
+
+  #     $CLASS has annotation "$A" endpoint "$E"
+  #   pattern: '@$A("$E") class $CLASS'
+  #   languages:
+  #     - java
+
+ # - id: spring-unvalidated-redirect
+ #    languages:
+ #      - java
+ #    severity: ERROR
+ #    message: |
+ #      Method: $METHOD
+ #    patterns:
+ #      - pattern-not: |-
+ #          @RequestMapping(...)
+ #          @RolesAllowed(...)
+ #          $X $METHOD(...) { ... }
+ #      - pattern-not: |-
+ #          @RolesAllowed(...)
+ #          @RequestMapping(...)
+ #          $X $METHOD(...) { ... }
+ #      - pattern: |-
+ #          @RequestMapping(...)
+ #          $X $METHOD(...) { ... }
+
+      
+  # - id: annotation
+  #   patterns:
+  #     - pattern: '@$A class $CLASS'
+  #   message: |
+  #     annotation $A found $CLASS
+  #   languages: [java]
+  #   severity: INFO
+  # - id: Component
+  #   patterns:
+  #     - pattern: '@Component class $CLASS'
+  #   message: |
+  #     Component found $CLASS
+  #   languages: [java]
+  #   severity: INFO
+  # - id: Service
+  #   patterns:
+  #     - pattern: '@Service class $CLASS'
+  #   message: |
+  #     Service found on class $CLASS
+  #   languages: [java]
+  #   severity: INFO
+  # - id: class
+  #   patterns:
+  #     - pattern: 'class $X'
+  #   message: |
+  #     class $X found.
+  #   languages: [ts]
+  #   severity: INFO
+  # - id: input-annotation
+  #   patterns:
+  #     - pattern: 'Input'
+  #   message: |
+  #     input found
+  #   languages: [ts]
+  #   severity: INFO
+  # - id: constructor
+  #   patterns:
+  #     - pattern: 'constructor(){...}'
+  #   message: |
+  #     input found
+  #   languages: [ts]
+  #   severity: INFO
+  # - id: signal
+  #   patterns:
+  #     - pattern: 'signal($P)'
+  #   message: |
+  #     input found $P
+  #   languages: [ts]
+  #   severity: INFO
+
+  # - id: class
+  #   patterns:
+  #     - pattern: 'class $X'
+  #   message: |
+  #     class $X found.
+  #   languages: [ts]
+  #   severity: INFO
